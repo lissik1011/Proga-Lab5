@@ -1,0 +1,15 @@
+plugins {
+    id 'application'
+}
+
+repositories {
+    mavenCentral()
+}
+
+mainClassName = "Main"
+
+dependencies {
+    implementation 'de.siegmar:fastcsv:3.6.0'
+    implementation project(":client")
+    implementation project(":server")
+}
