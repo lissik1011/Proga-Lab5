@@ -1,65 +1,26 @@
 package input;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.util.ArrayDeque;
-import java.util.Queue;
 import java.util.Scanner;
 
-import data.LabWork;
+import de.siegmar.fastcsv.reader.CsvReader;
+
 
 public class Input{
-    String delimiter;
-    String fileName;
 
-    public Input(String fileName, String delimiter){
-        this.fileName = fileName;
-        this.delimiter = delimiter;
+    public void input(String file_name){
+
+        // Iterative reading of some CSV data with a header
+        CsvReader.builder().ofNamedCsvRecord("""
+        id,header 2,header 3,header 4,header 5,header 6,header 7,header 8,header 9,header 10,header 11,header 12,header 13\n
+        field 1,field 2,field 3,field 4,field 5,field 6,field 7,field 8,field 9,field 10,field 11,field 12,field 13
+        """)
+        .forEach(rec -> System.out.println(rec.getField("header 2")));
     }
 
-    public Queue input(){
-        Queue<LabWork> labWorks = new ArrayDeque<>();
-
-        try {
-            File file = new File(fileName);
-            Scanner scanner = new Scanner(file);
-            scanner.useDelimiter(delimiter);
-
-            while (scanner.hasNextLine()){
-
-                String person = scanner.nextLine();
-
-                // Через join разделить на строки и передать их в Builder. Можно ли (int) "4" ?
-
-                // Построить объект в зависимости от кол-ва данных. Хотелось бы подать массив, чтобы он сам решил, чем будет 
-                // являться, однако не знаю как это можно сделать.
-                // Builder Lab = new Builder();
-
-                // CollectionManager collect = new CollectionManager(Lab);
-                // Хотелось бы, чтобы collectManager добавлял объекты в коллекцию. Будем ли мы реализовывать сериализацию?
-                // Нужно будет немного структурировать лабу. А то не совсем понятны этапы реализации.
-                
-            }
-
-            scanner.close();
-        } catch (FileNotFoundException ex) {
-            System.out.println("Файл не найден.");
-        }
-
-        return labWorks;
-
+    public String scannnerFileName(){
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Введите название файла:");
+        String file_name = scanner.nextLine();
+        scanner.close();
+        return file_name;
     }
 }
-
-
-// int id = scanner.nextInt();
-// String name = scanner.next();
-// int coordinates_x = scanner.nextInt();
-// float coordinates_y = scanner.nextFloat();
-// int minimalPoint = scanner.nextInt();
-// String difficulty = scanner.next();
-// String author_name = scanner.next();
-// float author_weight = scanner.nextFloat();
-// String author_passportId = scanner.next();
-// float author_location_x = scanner.nextFloat();
-// double author_location_y = scanner.nextDouble();
-// String author_location_name = scanner.next();

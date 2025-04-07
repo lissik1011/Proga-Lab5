@@ -6,6 +6,8 @@ import java.util.Queue;
 
 import data.LabWork;
 import de.siegmar.fastcsv.writer.CsvWriter;
+import de.siegmar.fastcsv.writer.LineDelimiter;
+import de.siegmar.fastcsv.writer.QuoteStrategies;
 
 public class Output{
 
@@ -13,11 +15,13 @@ public class Output{
         File file = new File(file_name);
 
         try (FileWriter writer = new FileWriter(file);
-            CsvWriter csv = CsvWriter.builder().build(writer)) {
+            CsvWriter csv = CsvWriter.builder().fieldSeparator(',').quoteCharacter('"')
+            .quoteStrategy(QuoteStrategies.ALWAYS).commentCharacter('#')
+            .lineDelimiter(LineDelimiter.LF).build(writer)) {
 
-            csv.writeRecord("id", "name", "coordinates.x", "coordinates.y", "creationDate",
-            "minimalPoint", "difficulty", "author.name", "author.weight",
-            "author.passportId", "author.location.x", "author.location.y", "author.location.name");
+            // csv.writeRecord("id", "name", "coordinates.x", "coordinates.y", "creationDate",
+            // "minimalPoint", "difficulty", "author.name", "author.weight",
+            // "author.passportId", "author.location.x", "author.location.y", "author.location.name");
             
             for (LabWork labWork : labWorks){
 
@@ -44,3 +48,19 @@ public class Output{
         }
     }
 }
+
+
+
+
+// int id = scanner.nextInt();
+// String name = scanner.next();
+// int coordinates_x = scanner.nextInt();
+// float coordinates_y = scanner.nextFloat();
+// int minimalPoint = scanner.nextInt();
+// String difficulty = scanner.next();
+// String author_name = scanner.next();
+// float author_weight = scanner.nextFloat();
+// String author_passportId = scanner.next();
+// float author_location_x = scanner.nextFloat();
+// double author_location_y = scanner.nextDouble();
+// String author_location_name = scanner.next();
