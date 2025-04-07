@@ -6,6 +6,7 @@ import data.Difficulty;
 import data.LabWork;
 import data.Location;
 import data.Person;
+import output.Output;
 
 public class Main {
     static Queue<LabWork> labWorks = new ArrayDeque<>();
@@ -21,6 +22,9 @@ public class Main {
         for (var e : labWorks) {
             System.out.println(e);
         }
+
+        Output exporter = new Output();
+        exporter.output(labWorks, "output.csv");
 
         // Input file_input = new Input("input.csv", ",");
         // labWorks.addAll(file_input.input());

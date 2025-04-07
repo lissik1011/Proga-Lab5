@@ -25,23 +25,6 @@ public class LabWork extends Collect implements Validation {
     this.author = author;
     }
 
-
-    // public LabWork(int id, String name, Coordinates coordinates, LocalDateTime creationDate,
-    //         Integer minimalPoint, Difficulty difficulty, Person author){
-    //     this.id = id;
-    //     this.name = name;
-    //     this.coordinates = coordinates;
-    //     this.creationDate = creationDate;
-    //     this.minimalPoint = minimalPoint;
-    //     this.difficulty = difficulty;
-    //     this.author = author;
-    // }
-
-    // public LabWork(int id, String name, Coordinates coordinates, 
-    //         Integer minimalPoint, Difficulty difficulty, Person author){
-    //     this(id, name, coordinates, LocalDateTime.now(), minimalPoint, difficulty, author);
-    // }
-
     @Override
     public String toString(){
         return String.format("LabWork{id: %d, name: %s,%n coordinates: %s,%n creationDate: %s,%n minimalPoint: %s, difficulty: %s,%n author: {%s} }%n", 
@@ -50,14 +33,6 @@ public class LabWork extends Collect implements Validation {
             minimalPoint, difficulty,
             (author == null ? "null" : author));
     }
-
-    // public String toCSV(){
-    //     return String.format("%d, %s, %s, %s, %s, %s, %s", 
-    //         id, name, coordinates.toCSV(), 
-    //         creationDate, 
-    //         minimalPoint, difficulty, 
-    //         (author == null ? "null" : author.toCSV()));
-    // }
 
     @Override
     public boolean validate(){
@@ -70,7 +45,6 @@ public class LabWork extends Collect implements Validation {
         else if (author == null || !author.validate()) return false;
         return true;
     }
-
 
     @Override
     public int compareTo(Collect element){

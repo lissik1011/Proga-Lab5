@@ -4,7 +4,6 @@ import java.io.FileNotFoundException;
 import java.util.ArrayDeque;
 import java.util.Queue;
 import java.util.Scanner;
-import collection_manager.*;
 
 import data.LabWork;
 
@@ -33,9 +32,9 @@ public class Input{
 
                 // Построить объект в зависимости от кол-ва данных. Хотелось бы подать массив, чтобы он сам решил, чем будет 
                 // являться, однако не знаю как это можно сделать.
-                Builder Lab = new Builder();
+                // Builder Lab = new Builder();
 
-                CollectionManager collect = new CollectionManager(Lab);
+                // CollectionManager collect = new CollectionManager(Lab);
                 // Хотелось бы, чтобы collectManager добавлял объекты в коллекцию. Будем ли мы реализовывать сериализацию?
                 // Нужно будет немного структурировать лабу. А то не совсем понятны этапы реализации.
                 
