@@ -6,7 +6,7 @@ import helpfull.Collect;
 import helpfull.Validation;
 
 public class LabWork extends Collect implements Validation {
-    // private long id; //Значение поля должно быть больше 0, Значение этого поля должно быть уникальным, Значение этого поля должно генерироваться автоматически
+    private long id; //Значение поля должно быть больше 0, Значение этого поля должно быть уникальным, Значение этого поля должно генерироваться автоматически
     private String name; //Поле не может быть null, Строка не может быть пустой
     private Coordinates coordinates; //Поле не может быть null
     private LocalDateTime creationDate; //Поле не может быть null, Значение этого поля должно генерироваться автоматически
@@ -14,12 +14,26 @@ public class LabWork extends Collect implements Validation {
     private Difficulty difficulty; //Поле не может быть null
     private Person author; //Поле может быть null
 
+    // Для создания объектов пользователем
     public LabWork(String name, Coordinates coordinates,
         Integer minimalPoint, Difficulty difficulty, Person author){
     super();
     this.name = name;
     this.coordinates = coordinates;
     this.creationDate = LocalDateTime.now();
+    this.minimalPoint = minimalPoint;
+    this.difficulty = difficulty;
+    this.author = author;
+    }
+
+    // Для чтения из файла
+    public LabWork(long id, String name, Coordinates coordinates, LocalDateTime creationDate,
+        Integer minimalPoint, Difficulty difficulty, Person author){
+    super();
+    this.id = id;
+    this.name = name;
+    this.coordinates = coordinates;
+    this.creationDate = creationDate;
     this.minimalPoint = minimalPoint;
     this.difficulty = difficulty;
     this.author = author;
@@ -42,7 +56,8 @@ public class LabWork extends Collect implements Validation {
         else if (creationDate == null) return false;
         else if (minimalPoint <= 0) return false;
         else if (difficulty == null) return false;
-        else if (author == null || !author.validate()) return false;
+        else if (author == null) return true;
+        else if (!author.validate()) return false;
         return true;
     }
 

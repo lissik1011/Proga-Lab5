@@ -19,9 +19,9 @@ public class Output{
             .quoteStrategy(QuoteStrategies.ALWAYS).commentCharacter('#')
             .lineDelimiter(LineDelimiter.LF).build(writer)) {
 
-            // csv.writeRecord("id", "name", "coordinates.x", "coordinates.y", "creationDate",
-            // "minimalPoint", "difficulty", "author.name", "author.weight",
-            // "author.passportId", "author.location.x", "author.location.y", "author.location.name");
+            csv.writeRecord("id", "name", "coordinates.x", "coordinates.y", "creationDate",
+            "minimalPoint", "difficulty", "author.name", "author.weight",
+            "author.passportId", "author.location.x", "author.location.y", "author.location.name");
             
             for (LabWork labWork : labWorks){
 

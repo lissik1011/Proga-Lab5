@@ -27,7 +27,7 @@ public class Person implements Validation{
 
     @Override
     public boolean validate(){
-        if (name == null || name.isEmpty()) return false;
+        if (name.isEmpty()) return false;
         else if (weight <= 0 || weight == null) return false;
         else if (passportID == null || passportID.length() > 32) return false;
         else if (location == null || !location.validate()) return false;
