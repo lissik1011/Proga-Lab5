@@ -6,6 +6,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeParseException;
 import java.util.Queue;
 import java.util.Scanner;
+import java.util.TreeSet;
 
 import data.Coordinates;
 import data.Difficulty;
@@ -20,19 +21,37 @@ import de.siegmar.fastcsv.reader.NamedCsvRecord;
 
 public class Input{
 
-    public void input(Queue<LabWork> labWorks){
+    public void input(Queue<LabWork> labWorks, TreeSet<Long> ID){
         Scanner scanner = new Scanner(System.in);
-        System.out.print("Введите название файла: ");
-        String file_name = scanner.nextLine();
-        Path file = Paths.get(file_name);
         String empty = "";
+        CsvReader<NamedCsvRecord> csv = null;
 
-        try (CsvReader<NamedCsvRecord> csv = CsvReader.builder().fieldSeparator(',').quoteCharacter('"')
-            .commentStrategy(CommentStrategy.SKIP).commentCharacter('#')
-            .skipEmptyLines(true).ignoreDifferentFieldCount(false)
-            .acceptCharsAfterQuotes(false).detectBomHeader(true)
-            .maxBufferSize(16777216).ofNamedCsvRecord(file)) {
+        while (csv == null){
+            System.out.print("Введите название файла: ");
+            String file_name = scanner.nextLine();
+            Path file = Paths.get(file_name);
 
+            try {
+                csv = CsvReader.builder()
+                .fieldSeparator(',')
+                .quoteCharacter('"')
+                .commentStrategy(CommentStrategy.SKIP)
+                .commentCharacter('#')
+                .skipEmptyLines(true)
+                .ignoreDifferentFieldCount(false)
+                .acceptCharsAfterQuotes(false)
+                .detectBomHeader(true)
+                .maxBufferSize(16777216)
+                .ofNamedCsvRecord(file);
+
+            } catch (IOException ex) {
+                System.out.println("Файл не найден или отсутствует доступ к файлу. Еще раз.");
+            } catch (Exception e) {
+                System.out.printf("Ошибка чтения файла. Description: " + e.getMessage());   
+            }
+        }
+
+        try {
             LabWork labwork;
 
             for (NamedCsvRecord rec : csv){
@@ -44,6 +63,7 @@ public class Input{
                     LocalDateTime creationDate = LocalDateTime.parse(rec.getField("creationDate"));
                     int minimalPoint = Integer.parseInt(rec.getField("minimalPoint"));
                     Difficulty difficulty =  Difficulty.valueOf(rec.getField("difficulty"));
+
                     if (empty.equals(rec.getField("author.name"))){
                         labwork = new LabWork(id, name, new Coordinates(coordinatesX, coordinatesY), creationDate,
                         minimalPoint, difficulty, null);  
@@ -63,12 +83,17 @@ public class Input{
                     }
 
                     if (labwork.validate()) {
-                        labWorks.add(labwork);
+                        if (!ID.contains(id)){
+                            labwork.setId(id);
+                            labWorks.add(labwork);
+                            ID.add(id);                            
+                        } else {
+                        System.out.println("Объект с id = " + id + " уже существует. Запись не добавлена. Имя записи: " + name);
+                        }
                     }
                     else {
                         System.out.println("Объект с id = " + id + " не был добавлен в коллекцию. Данные не валидные.");
                     }
-
 
                 } catch (NumberFormatException e) {
                     System.out.println("Неверные данные. Объект не добавлен. Id записи: " + rec.getField("id") + ". Ошибка преобразования числа: " + e.getMessage());
@@ -80,11 +105,16 @@ public class Input{
                     System.out.println(e.getMessage() + "Неверные данные. Объект не добавлен. Id записи = " + rec.getField("id"));
                 }
             }
-            System.out.println("Объекты добавлены в коллекцию.");
+            System.out.println("Объекты добавлены в коллекцию.");  
 
-        } catch (IOException ex) {
-            System.out.println("Файл не найден или отсутствует доступ к файлу.");
-            this.input(labWorks); // Метод input может рекурсивно выполняться, если не переопределен в подклассах.
+        } catch (Exception e) {
+            System.out.printf("Ошибка чтения данных. Проверьте их на корректность.\nЧтобы узнать больше информации, введите more или нажмите enter\n");
+            Scanner scan = new Scanner(System.in);
+            if (scan.nextLine().equals("more")){
+                System.out.println(e.getMessage());
+            } else {
+                System.out.print("");
+            }        
         }
-    }        
-}
+    }     
+}   

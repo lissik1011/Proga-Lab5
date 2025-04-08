@@ -29,7 +29,6 @@ public class LabWork extends Collect implements Validation {
     // Для чтения из файла
     public LabWork(long id, String name, Coordinates coordinates, LocalDateTime creationDate,
         Integer minimalPoint, Difficulty difficulty, Person author){
-    super();
     this.id = id;
     this.name = name;
     this.coordinates = coordinates;
@@ -61,11 +60,6 @@ public class LabWork extends Collect implements Validation {
         return true;
     }
 
-    @Override
-    public int compareTo(Collect element){
-        return Long.compare(this.getId(), element.getId());
-    }
-
     // get
     public String getName(){
         return name;
@@ -87,6 +81,9 @@ public class LabWork extends Collect implements Validation {
     }
 
     // set
+    public void setId(long id){
+        this.id = id;
+    }
     public void setName(String name) {
         this.name = name;
     }
