@@ -50,7 +50,7 @@ public class LabWork extends Collect implements Validation {
     @Override
     public boolean validate(){
         if (this.getId() <= 0) return false;
-        else if (name == null || name.isEmpty()) return false;
+        else if (name == null || name.isEmpty() || name.contains("\"")) return false;
         else if (coordinates == null || !coordinates.validate()) return false;
         else if (creationDate == null) return false;
         else if (minimalPoint <= 0) return false;

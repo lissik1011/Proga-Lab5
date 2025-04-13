@@ -1,33 +1,57 @@
 package commands;
 
-import java.util.Scanner;
+import java.util.Queue;
+
+import commands.get.ALocName;
+import commands.get.ALocationX;
+import commands.get.ALocationY;
+import commands.get.AuthorName;
+import commands.get.AuthorPassportId;
+import commands.get.AuthorWeight;
+import commands.get.CoordinatesX;
+import commands.get.CoordinatesY;
+import commands.get.DifficultyName;
+import commands.get.MinimalPoint;
+import commands.get.Name;
+import data.Coordinates;
+import data.Difficulty;
+import data.LabWork;
+import data.Location;
+import data.Person;
+
 
 public class Add implements Command{
     @Override
-    public void execute(){
-        Scanner scan = new Scanner(System.in);
+    public void execute(Queue<LabWork> labWork){
+        System.out.println("Введите элементы лабораторной работы. Для выхода нажмите enter:");
 
-        System.out.print("Введите имя: ");
-        String name = scan.nextLine();
-        if (name.contains("\"")){
-            
+        String name = new Name().getName();
+        int coordinatesX = new CoordinatesX().getCoordX();
+        float coordinatesY = new CoordinatesY().getCoordY();
+        int minimalPoint = new MinimalPoint().getMinPoint();
+        Difficulty difficulty = new DifficultyName().getDif();
+        String authorName = new AuthorName().getAName();
+
+        if (authorName.isEmpty()) {
+            LabWork labwork = new LabWork(name, new Coordinates(coordinatesX, coordinatesY),
+            minimalPoint, difficulty, null);
+
+            labWork.add(labwork);
+        } else {
+            Float authorWeight = new AuthorWeight().getAWeight();
+            String authorPassportId = new AuthorPassportId().getAPassportId();
+            Float authorLocationX = new ALocationX().getLocX();
+            Double authorLocationY = new ALocationY().getLocY();
+            String authorLocationName = new ALocName().getALName();
+
+            LabWork labwork = new LabWork(name, new Coordinates(coordinatesX, coordinatesY),
+            minimalPoint, difficulty, 
+            new Person(authorName, authorWeight, authorPassportId, 
+            new Location(authorLocationX, authorLocationY, authorLocationName)));
+
+            labWork.add(labwork);
         }
 
-        System.out.println("Введите координату x: ");
-
-
-        // while (true) {
-        //     if (scan.hasNextLine()){
-        //         System.out.print("Введите имя: ");
-        //         String name = scan.nextLine();
-
-        //         System.out.print("Введите координату x: ");
-        //         int coordinatesX = Integer.parseInt(scan.nextLine());
-        //     } else {
-        //         break;
-        //     }
-        // }
-
-
+        System.out.println("Элемент добавлен в коллекцию.");
     }
 }

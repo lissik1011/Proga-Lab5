@@ -15,15 +15,18 @@ public class Main {
     static Queue<LabWork> labWorks = new ArrayDeque<>();
     static TreeSet<Long> ID = new TreeSet<>();
     public static void main(String[] args){
-        String file_name = args[0];
-        Path file = Paths.get(file_name);
+        try {
+            String file_name = args[0];
+            Path file = Paths.get(file_name);
 
-        if (Files.exists(file)){
-            TakeCsv csv = new TakeCsv();
-            new Input().input(csv.takeCsv(file), labWorks, ID);    
-        } else {
-            System.out.println("Файл не найден или нет доступа к нему. Коллекция пустая.");
-        }
+            if (Files.exists(file)){
+                TakeCsv csv = new TakeCsv();
+                new Input().input(csv.takeCsv(file), labWorks, ID);    
+            } else {
+                System.out.println("Файл не найден или нет доступа к нему. Коллекция пустая.");
+            }
+        } catch (Exception e) {}
+
 
         // for (var e : labWorks) {
         //     System.out.println(e);
@@ -38,9 +41,9 @@ public class Main {
         while (true){
             System.out.print("-> ");
             if (scan.hasNextLine()){
-                String scancom = scan.nextLine();
+                String scancom = scan.nextLine().trim();
                 if (command.thisIsCommand(scancom)){
-                    command.execute(scancom);
+                    command.execute(labWorks, scancom);
                 } else if (scancom.isEmpty()){
                 } else {
                     System.out.println("Команда не распознана. Введите help, чтобы узнать доступные команды.");

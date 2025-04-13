@@ -29,7 +29,7 @@ public class Person implements Validation{
     public boolean validate(){
         if (name.isEmpty()) return false;
         else if (weight <= 0 || weight == null) return false;
-        else if (passportID == null || passportID.length() > 32) return false;
+        else if (passportID == null || passportID.length() > 32 || passportID.contains("\"")) return false;
         else if (location == null || !location.validate()) return false;
         return true;
     }
