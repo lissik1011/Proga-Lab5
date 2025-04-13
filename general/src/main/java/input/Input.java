@@ -1,7 +1,4 @@
 package input;
-import java.io.IOException;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeParseException;
 import java.util.Queue;
@@ -13,7 +10,6 @@ import data.Difficulty;
 import data.LabWork;
 import data.Location;
 import data.Person;
-import de.siegmar.fastcsv.reader.CommentStrategy;
 import de.siegmar.fastcsv.reader.CsvReader;
 import de.siegmar.fastcsv.reader.NamedCsvRecord;
 
@@ -21,35 +17,8 @@ import de.siegmar.fastcsv.reader.NamedCsvRecord;
 
 public class Input{
 
-    public void input(Queue<LabWork> labWorks, TreeSet<Long> ID){
-        Scanner scanner = new Scanner(System.in);
+    public void input(CsvReader<NamedCsvRecord> csv, Queue<LabWork> labWorks, TreeSet<Long> ID){
         String empty = "";
-        CsvReader<NamedCsvRecord> csv = null;
-
-        while (csv == null){
-            System.out.print("Введите название файла: ");
-            String file_name = scanner.nextLine();
-            Path file = Paths.get(file_name);
-
-            try {
-                csv = CsvReader.builder()
-                .fieldSeparator(',')
-                .quoteCharacter('"')
-                .commentStrategy(CommentStrategy.SKIP)
-                .commentCharacter('#')
-                .skipEmptyLines(true)
-                .ignoreDifferentFieldCount(false)
-                .acceptCharsAfterQuotes(false)
-                .detectBomHeader(true)
-                .maxBufferSize(16777216)
-                .ofNamedCsvRecord(file);
-
-            } catch (IOException ex) {
-                System.out.println("Файл не найден или отсутствует доступ к файлу. Еще раз.");
-            } catch (Exception e) {
-                System.out.printf("Ошибка чтения файла. Description: " + e.getMessage());   
-            }
-        }
 
         try {
             LabWork labwork;
@@ -105,15 +74,24 @@ public class Input{
                     System.out.println(e.getMessage() + "Неверные данные. Объект не добавлен. Id записи = " + rec.getField("id"));
                 }
             }
-            System.out.println("Объекты добавлены в коллекцию.");  
+            if (!labWorks.isEmpty()){
+                System.out.println("Объекты добавлены в коллекцию.");  
+            } else {
+                System.out.println("Объектов нет.");
+            }
 
         } catch (Exception e) {
-            System.out.printf("Ошибка чтения данных. Проверьте их на корректность.\nЧтобы узнать больше информации, введите more или нажмите enter\n");
+            System.out.println("Ошибка чтения данных. Проверьте их на корректность.");
+            if (!labWorks.isEmpty()){
+                System.out.println("Корректные объекты добавлены.");
+            }
+            System.out.print("Введите more, чтобы узнать больше информации, или нажмите enter: ");
+            
             Scanner scan = new Scanner(System.in);
             if (scan.nextLine().equals("more")){
-                System.out.println(e.getMessage());
+                System.out.println(e.getMessage() + "\n");
             } else {
-                System.out.print("");
+                System.out.println("");
             }        
         }
     }     

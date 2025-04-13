@@ -9,7 +9,7 @@ public abstract class Collect implements Validation{
     public Collect() {
         this.iD = ++counter; 
     }
-    public long getId() {
+    public long takeId() {
         return iD;
     }
     public void printId(){

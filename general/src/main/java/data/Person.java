@@ -16,7 +16,7 @@ public class Person implements Validation{
 
     @Override
     public String toString(){
-        return String.format("name: %s, weight: %s, passportID: %s, location: %s", 
+        return String.format("name: %s, weight: %s, passportID: %s, Location: %s", 
         name, weight, passportID, location);
     }
 

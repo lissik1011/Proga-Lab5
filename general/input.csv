@@ -1,8 +1,0 @@
-"id","name","coordinates.x","coordinates.y","creationDate","minimalPoint","difficulty","author.name","author.weight","author.passportId","author.location.x","author.location.y","author.location.name"
-4, "Один",4,1.23,"2025-04-07T20:11:53.780430177",10,HARD,"lis",45.67,"123456789098",0.687,8.865,"fi"
-5, "Два","0", 3456.242,"2025-04-07T20:11:53.780430177",454,HARD, "gl",354645.66, "22232345098",9393.687,234.4325, "lsls"
-6, "Три",65483,35.134,"2025-04-07T20:11:53.780430177",65,"HARD", ,,,,,
-
-"Input: открыт блок while для избавления от рекурсии. Добавила проверку на уникальность id.
-Main: Добавила TreeSet, для хранения Id.
-LabWork: Убрала compareTo, добавила setId, но ситуацию это не исправило."

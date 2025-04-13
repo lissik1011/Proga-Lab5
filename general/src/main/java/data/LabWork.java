@@ -17,7 +17,7 @@ public class LabWork extends Collect implements Validation {
     // Для создания объектов пользователем
     public LabWork(String name, Coordinates coordinates,
         Integer minimalPoint, Difficulty difficulty, Person author){
-    super();
+    this.id = this.takeId();
     this.name = name;
     this.coordinates = coordinates;
     this.creationDate = LocalDateTime.now();
@@ -40,7 +40,7 @@ public class LabWork extends Collect implements Validation {
 
     @Override
     public String toString(){
-        return String.format("LabWork{id: %d, name: %s,%n coordinates: %s,%n creationDate: %s,%n minimalPoint: %s, difficulty: %s,%n author: {%s} }%n", 
+        return String.format("LabWork{%n id: %d, %n name: %s,%n coordinates: %s,%n creationDate: %s,%n minimalPoint: %s,%n difficulty: %s,%n Person: {%s} }%n", 
             this.getId(), name, coordinates, 
             creationDate.format(DateTimeFormatter.ofPattern("dd.MM.yyyy HH:mm:ss")),
             minimalPoint, difficulty,
@@ -61,6 +61,9 @@ public class LabWork extends Collect implements Validation {
     }
 
     // get
+    public long getId(){
+        return id;
+    }
     public String getName(){
         return name;
     }
