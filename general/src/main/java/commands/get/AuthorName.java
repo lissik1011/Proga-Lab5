@@ -3,24 +3,15 @@ package commands.get;
 import java.util.Scanner;
 
 public class AuthorName{
-    public String getAName(){
-        Scanner scan = new Scanner(System.in);
+    public static String getAName(Scanner scan){
         while (true) { 
             System.out.print("Введите имя автора.\nЕсли автора нет, нажмите enter: ");
             if (scan.hasNextLine()){
                 String scanName = scan.nextLine();
-                if (validate(scanName)){
-                    return scanName;
-                } else {
-                    System.out.println("Введено неверное имя, оно содержит двойную кавычку. Если хотите использовать кавычки, используйте одиночные.");
-                }
+                return scanName;
             } else {
-                    System.out.println("Введено неверное имя, оно содержит двойную кавычку. Если хотите использовать кавычки, используйте одиночные.");
+                try (scan) {}
             }
         }
-    }
-
-    private boolean validate(String name){
-        return !name.contains("\"");
     }
 }

@@ -1,5 +1,5 @@
 package helpfull;
 
-public interface Validation{
+public interface Validation {
     boolean validate();
 }

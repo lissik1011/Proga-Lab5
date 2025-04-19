@@ -3,8 +3,7 @@ package commands.get;
 import java.util.Scanner;
 
 public class Name{
-    public String getName(){
-        Scanner scan = new Scanner(System.in);
+    public static String getName(Scanner scan){
         while (true) { 
             System.out.print("Введите название работы: ");
             if (scan.hasNextLine()){
@@ -15,12 +14,12 @@ public class Name{
                     System.out.println("Введено неверное название, оно пустое или содержит двойную кавычку. Если хотите использовать кавычки, используйте одиночные.");
                 }
             } else {
-                    System.out.println("Введено неверное название, оно пустое или содержит двойную кавычку. Если хотите использовать кавычки, используйте одиночные.");
+                try (scan) {}
             }
         }
     }
 
-    private boolean validate(String name){
-        return !name.isEmpty() && !name.contains("\"");
+    private static boolean validate(String name){
+        return !name.isEmpty();
     }
 }

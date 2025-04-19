@@ -3,8 +3,7 @@ package commands.get;
 import java.util.Scanner;
 
 public class AuthorPassportId{
-    public String getAPassportId(){
-        Scanner scan = new Scanner(System.in);
+    public static String getAPassportId(Scanner scan){
         while (true) { 
             System.out.print("Введите паспортный идентификатор автора: ");
             if (scan.hasNextLine()){
@@ -15,12 +14,12 @@ public class AuthorPassportId{
                     System.out.println("Введен неверный id, он пустой или содержит двойную кавычку. Если хотите использовать кавычки, используйте одиночные.");
                 }
             } else {
-                    System.out.println("Введен неверный id, он пустой или содержит двойную кавычку. Если хотите использовать кавычки, используйте одиночные.");
+                try (scan) {}
             }
         }
     }
 
-    private boolean validate(String name){
-        return !name.isEmpty() && !name.contains("\"");
+    private static boolean validate(String name){
+        return !name.isEmpty();
     }
 }

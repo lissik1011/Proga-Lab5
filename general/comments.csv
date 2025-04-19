@@ -1,4 +1,12 @@
-"Main: можно загружать приложение без файла.
-data: обновлены методы validates.
-command.get: созданы классы для команды Add.
-Add: добавлена команда."
+"В классы команд добавлена обработка исключений при наличии аргументов.
+Добавлен считыватель аргументов.
+Сделаны все команды кроме execute и update.
+Исправлена проверка на наличие двойных кавычек."
+
+
+DODELAT KOMANDI NE NO CHTO NIZE
+
+Make some function static
+Add some exceptions (ConsoleException) Классы, которые throws Exception будут выкидывать ошибки выше
+Setter and getter in builder 
+Add validate for Commands

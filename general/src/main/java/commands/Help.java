@@ -1,12 +1,16 @@
 package commands;
 
-import java.util.Queue;
+import java.util.Deque;
+import java.util.Scanner;
 
 import data.LabWork;
 
+// Вывести справку по доступным командам.
 public class Help implements Command{
     @Override
-    public void execute(Queue<LabWork> labWork){
+    public void execute(Deque<LabWork> labWorks, String args, Scanner scan) throws IllegalArgumentException{
+        if (!args.isEmpty()) throw new IllegalArgumentException("Неизвестные аргументы. Введите help, чтобы узнать доступные команды.");
+
         System.out.print("add {element} - ");
         System.out.print("Добавить новый элемент в коллекцию.\n");
 
@@ -46,13 +50,13 @@ public class Help implements Command{
         System.out.print("remove_greater_by_id {id} - ");
         System.out.print("Удалить из коллекции все элементы, превышающие заданный.\n");
 
-        System.out.print("save - ");
+        System.out.print("save {file} - ");
         System.out.print("Сохранить коллекцию в файл.\n");
 
         System.out.print("show - ");
         System.out.print("Вывести все элементы коллекции в строковом представлении.\n");
 
-        System.out.print("update_by_id {element} - ");
+        System.out.print("update_by_id {id} - ");
         System.out.print("Обновить значение элемента коллекции, id которого равен заданному.\n");
     }
 }

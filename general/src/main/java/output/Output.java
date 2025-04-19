@@ -2,7 +2,7 @@ package output;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.util.Queue;
+import java.util.Deque;
 
 import data.LabWork;
 import de.siegmar.fastcsv.writer.CsvWriter;
@@ -11,7 +11,7 @@ import de.siegmar.fastcsv.writer.QuoteStrategies;
 
 public class Output{
 
-    public void output(Queue<LabWork> labWorks, String file_name){
+    public void output(Deque<LabWork> labWorks, String file_name){
         File file = new File(file_name);
 
         try (FileWriter writer = new FileWriter(file);

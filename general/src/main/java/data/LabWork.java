@@ -3,13 +3,12 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 import helpfull.Collect;
-import helpfull.Validation;
 
-public class LabWork extends Collect implements Validation {
+public class LabWork extends Collect{
     private long id; //Значение поля должно быть больше 0, Значение этого поля должно быть уникальным, Значение этого поля должно генерироваться автоматически
     private String name; //Поле не может быть null, Строка не может быть пустой
     private Coordinates coordinates; //Поле не может быть null
-    private LocalDateTime creationDate; //Поле не может быть null, Значение этого поля должно генерироваться автоматически
+    private final LocalDateTime creationDate; //Поле не может быть null, Значение этого поля должно генерироваться автоматически
     private Integer minimalPoint; //Поле не может быть null, Значение поля должно быть больше 0
     private Difficulty difficulty; //Поле не может быть null
     private Person author; //Поле может быть null
@@ -17,25 +16,25 @@ public class LabWork extends Collect implements Validation {
     // Для создания объектов пользователем
     public LabWork(String name, Coordinates coordinates,
         Integer minimalPoint, Difficulty difficulty, Person author){
-    this.id = this.takeId();
-    this.name = name;
-    this.coordinates = coordinates;
-    this.creationDate = LocalDateTime.now();
-    this.minimalPoint = minimalPoint;
-    this.difficulty = difficulty;
-    this.author = author;
+        this.id = this.takeId();
+        this.name = name;
+        this.coordinates = coordinates;
+        this.creationDate = LocalDateTime.now();
+        this.minimalPoint = minimalPoint;
+        this.difficulty = difficulty;
+        this.author = author;
     }
 
     // Для чтения из файла
     public LabWork(long id, String name, Coordinates coordinates, LocalDateTime creationDate,
         Integer minimalPoint, Difficulty difficulty, Person author){
-    this.id = id;
-    this.name = name;
-    this.coordinates = coordinates;
-    this.creationDate = creationDate;
-    this.minimalPoint = minimalPoint;
-    this.difficulty = difficulty;
-    this.author = author;
+        this.id = id;
+        this.name = name;
+        this.coordinates = coordinates;
+        this.creationDate = creationDate;
+        this.minimalPoint = minimalPoint;   
+        this.difficulty = difficulty;
+        this.author = author;
     }
 
     @Override
@@ -50,7 +49,7 @@ public class LabWork extends Collect implements Validation {
     @Override
     public boolean validate(){
         if (this.getId() <= 0) return false;
-        else if (name == null || name.isEmpty() || name.contains("\"")) return false;
+        else if (name == null || name.isEmpty()) return false;
         else if (coordinates == null || !coordinates.validate()) return false;
         else if (creationDate == null) return false;
         else if (minimalPoint <= 0) return false;

@@ -8,11 +8,9 @@ import de.siegmar.fastcsv.reader.CsvReader;
 import de.siegmar.fastcsv.reader.NamedCsvRecord;
 
 public class TakeCsv{
-    CsvReader<NamedCsvRecord> csv;
-
-    public CsvReader<NamedCsvRecord> takeCsv(Path file){
+    public static CsvReader<NamedCsvRecord> takeCsv(Path file) {
         try {
-            csv = CsvReader.builder()
+            return CsvReader.builder()
             .fieldSeparator(',')
             .quoteCharacter('"')
             .commentStrategy(CommentStrategy.SKIP)
@@ -27,7 +25,6 @@ public class TakeCsv{
         } catch (IOException e) {
             System.out.printf("Ошибка чтения файла. Description: " + e.getMessage() + "\n");   
         }
-
-        return csv;
+        return null;
     }
 }

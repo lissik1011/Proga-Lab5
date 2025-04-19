@@ -2,9 +2,8 @@ package commands.get;
 
 import java.util.Scanner;
 
-public class ALocationX{
-    public float getLocX(){
-        Scanner scan = new Scanner(System.in);
+public class ALocationX {
+    public static float getLocX(Scanner scan){
         while (true) { 
             System.out.print("Введите координату локации x (вещественное число): ");
             if (scan.hasNextLine()){
@@ -16,7 +15,7 @@ public class ALocationX{
                     System.out.println("Введены неверные данные.");
                 }
             } else {
-                System.out.println("Введены неверные данные.");
+                try (scan) {}
             }
         }
     }

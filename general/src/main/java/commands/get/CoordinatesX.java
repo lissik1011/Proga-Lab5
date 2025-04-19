@@ -3,8 +3,7 @@ package commands.get;
 import java.util.Scanner;
 
 public class CoordinatesX{
-    public int getCoordX(){
-        Scanner scan = new Scanner(System.in);
+    public static int getCoordX(Scanner scan){
         while (true) { 
             System.out.print("Введите координату x (целое число): ");
             if (scan.hasNextLine()){
@@ -16,7 +15,7 @@ public class CoordinatesX{
                     System.out.println("Введены неверные данные.");
                 }
             } else {
-                System.out.println("Введены неверные данные.");
+                try (scan) {}
             }
         }
     }

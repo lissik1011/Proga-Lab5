@@ -3,8 +3,7 @@ package commands.get;
 import java.util.Scanner;
 
 public class ALocationY{
-    public double getLocY(){
-        Scanner scan = new Scanner(System.in);
+    public static double getLocY(Scanner scan){
         while (true) { 
             System.out.print("Введите координату локации y (вещественное число): ");
             if (scan.hasNextLine()){
@@ -16,7 +15,7 @@ public class ALocationY{
                     System.out.println("Введены неверные данные.");
                 }
             } else {
-                System.out.println("Введены неверные данные.");
+                try (scan) {}
             }
         }
     }

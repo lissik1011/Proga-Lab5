@@ -5,8 +5,7 @@ import java.util.Scanner;
 import data.Difficulty;
 
 public class DifficultyName{
-    public Difficulty getDif(){
-        Scanner scan = new Scanner(System.in);
+    public static Difficulty getDif(Scanner scan){
         while (true) { 
             System.out.print("Выберите трудность\n1 - Hard, 2 - Hopeless, 3 - Terrible: ");
             if (scan.hasNextLine()){
@@ -29,7 +28,7 @@ public class DifficultyName{
                     System.out.println("Введены неверные данные.");
                 }
             } else {
-                System.out.println("Введены неверные данные.");
+                try (scan) {}
             }
         }
     }

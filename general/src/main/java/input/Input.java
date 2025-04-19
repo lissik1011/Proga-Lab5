@@ -1,10 +1,13 @@
 package input;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeParseException;
-import java.util.Queue;
+import java.util.Deque;
 import java.util.Scanner;
 import java.util.TreeSet;
 
+import collection_manager.CollectionManager;
+import commands.GroupCountinfByAuthor;
+import commands.Info;
 import data.Coordinates;
 import data.Difficulty;
 import data.LabWork;
@@ -17,9 +20,7 @@ import de.siegmar.fastcsv.reader.NamedCsvRecord;
 
 public class Input{
 
-    public void input(CsvReader<NamedCsvRecord> csv, Queue<LabWork> labWorks, TreeSet<Long> ID){
-        String empty = "";
-
+    public void input(CsvReader<NamedCsvRecord> csv, Deque<LabWork> labWorks, TreeSet<Long> ID, Scanner scan){
         try {
             LabWork labwork;
 
@@ -33,9 +34,9 @@ public class Input{
                     int minimalPoint = Integer.parseInt(rec.getField("minimalPoint"));
                     Difficulty difficulty =  Difficulty.valueOf(rec.getField("difficulty"));
 
-                    if (empty.equals(rec.getField("author.name"))){
+                    if (rec.getField("author.name").isEmpty()){
                         labwork = new LabWork(id, name, new Coordinates(coordinatesX, coordinatesY), creationDate,
-                        minimalPoint, difficulty, null);  
+                        minimalPoint, difficulty, null);
                     }
                     else {
                         String authorName = rec.getField("author.name");
@@ -55,7 +56,14 @@ public class Input{
                         if (!ID.contains(id)){
                             labwork.setId(id);
                             labWorks.add(labwork);
-                            ID.add(id);                            
+                            ID.add(id);
+
+                            GroupCountinfByAuthor setAName = new GroupCountinfByAuthor();
+                            if (labwork.getAuthor() != null) {
+                                setAName.addAName(labwork.getAuthor().getName());
+                            }
+
+                            CollectionManager.sort(labWorks);
                         } else {
                         System.out.println("Объект с id = " + id + " уже существует. Запись не добавлена. Имя записи: " + name);
                         }
@@ -75,7 +83,9 @@ public class Input{
                 }
             }
             if (!labWorks.isEmpty()){
-                System.out.println("Объекты добавлены в коллекцию.");  
+                System.out.println("Объекты добавлены в коллекцию.");
+                new Info().saveDateOfColl();
+
             } else {
                 System.out.println("Объектов нет.");
             }
@@ -87,12 +97,11 @@ public class Input{
             }
             System.out.print("Введите more, чтобы узнать больше информации, или нажмите enter: ");
             
-            Scanner scan = new Scanner(System.in);
             if (scan.nextLine().equals("more")){
                 System.out.println(e.getMessage() + "\n");
             } else {
                 System.out.println("");
-            }        
+            }
         }
     }     
 }   

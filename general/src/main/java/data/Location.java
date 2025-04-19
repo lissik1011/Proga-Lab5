@@ -25,7 +25,7 @@ public class Location implements Validation{
     public boolean validate(){
         if (x == null) return false;
         else if (y == null) return false;
-        else if (name == null || name.isEmpty() || name.contains("\"")) return false;
+        else if (name == null || name.isEmpty()) return false;
         return true;
     }
 

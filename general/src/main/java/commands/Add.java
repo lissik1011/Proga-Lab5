@@ -1,7 +1,9 @@
 package commands;
 
-import java.util.Queue;
+import java.util.Deque;
+import java.util.Scanner;
 
+import collection_manager.CollectionManager;
 import commands.get.ALocName;
 import commands.get.ALocationX;
 import commands.get.ALocationY;
@@ -19,39 +21,55 @@ import data.LabWork;
 import data.Location;
 import data.Person;
 
-
+// Добавить новый элемент в коллекцию.
 public class Add implements Command{
-    @Override
-    public void execute(Queue<LabWork> labWork){
-        System.out.println("Введите элементы лабораторной работы. Для выхода нажмите enter:");
+    Info info = new Info();
 
-        String name = new Name().getName();
-        int coordinatesX = new CoordinatesX().getCoordX();
-        float coordinatesY = new CoordinatesY().getCoordY();
-        int minimalPoint = new MinimalPoint().getMinPoint();
-        Difficulty difficulty = new DifficultyName().getDif();
-        String authorName = new AuthorName().getAName();
+    @Override
+    public void execute(Deque<LabWork> labWorks, String args, Scanner scan) throws IllegalArgumentException{
+        if (!args.isEmpty()) throw new IllegalArgumentException("Неизвестные аргументы. Введите help, чтобы узнать доступные команды.");
+
+        System.out.println("Введите элементы лабораторной работы.");
+        
+        String name = Name.getName(scan);
+        int coordinatesX = CoordinatesX.getCoordX(scan);
+        float coordinatesY = CoordinatesY.getCoordY(scan);
+        int minimalPoint = MinimalPoint.getMinPoint(scan);
+        Difficulty difficulty = DifficultyName.getDif(scan);
+        String authorName = AuthorName.getAName(scan);
+        
 
         if (authorName.isEmpty()) {
             LabWork labwork = new LabWork(name, new Coordinates(coordinatesX, coordinatesY),
             minimalPoint, difficulty, null);
 
-            labWork.add(labwork);
+            labWorks.add(labwork);
         } else {
-            Float authorWeight = new AuthorWeight().getAWeight();
-            String authorPassportId = new AuthorPassportId().getAPassportId();
-            Float authorLocationX = new ALocationX().getLocX();
-            Double authorLocationY = new ALocationY().getLocY();
-            String authorLocationName = new ALocName().getALName();
+            Float authorWeight = AuthorWeight.getAWeight(scan);
+            String authorPassportId = AuthorPassportId.getAPassportId(scan);
+            Float authorLocationX = ALocationX.getLocX(scan);
+            Double authorLocationY = ALocationY.getLocY(scan);
+            String authorLocationName = ALocName.getALName(scan);            
 
             LabWork labwork = new LabWork(name, new Coordinates(coordinatesX, coordinatesY),
             minimalPoint, difficulty, 
             new Person(authorName, authorWeight, authorPassportId, 
             new Location(authorLocationX, authorLocationY, authorLocationName)));
 
-            labWork.add(labwork);
+            labWorks.add(labwork);
+
+            GroupCountinfByAuthor setAName = new GroupCountinfByAuthor();
+            if (labwork.getAuthor() != null) {
+                setAName.addAName(labwork.getAuthor().getName());
+            }
+
+            CollectionManager.sort(labWorks);
         }
 
         System.out.println("Элемент добавлен в коллекцию.");
+        info.saveLastDateOfMod();
+        info.counterOfMod();
+
+        if (!info.getDateOfColl()) info.saveDateOfColl();
     }
 }
