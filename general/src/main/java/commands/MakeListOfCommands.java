@@ -21,7 +21,7 @@ public class MakeListOfCommands{
     static {
         listCommands.put("add", new Add());
         listCommands.put("clear", new Clear());
-        listCommands.put("execute_script", new Help());  // НЕ ГОТОВО
+        listCommands.put("execute_script", new ExecuteScript());
         listCommands.put("exit", new Exit());
         listCommands.put("filter_contains_name", new FilterConteinsName());
         listCommands.put("group_counting_by_author", new GroupCountinfByAuthor());
@@ -34,6 +34,6 @@ public class MakeListOfCommands{
         listCommands.put("remove_greater_by_id", new RemoveGreaterById());
         listCommands.put("save", new Save());
         listCommands.put("show", new Show());
-        listCommands.put("update_by_id", new Help()); // НЕ ГОТОВО
+        listCommands.put("update_by_id", new Update());
     }
 }

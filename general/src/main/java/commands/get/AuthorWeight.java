@@ -2,10 +2,12 @@ package commands.get;
 
 import java.util.Scanner;
 
+import commands.ExecuteScript;
+
 public class AuthorWeight{
     public static float getAWeight(Scanner scan){
         while (true) { 
-            System.out.print("Введите вес автора (вещественное число): ");
+            if (ExecuteScript.getScannerType()) {System.out.print("Введите вес автора (вещественное число): ");}
             if (scan.hasNextLine()){
                 String scanName = scan.nextLine();
                 try {

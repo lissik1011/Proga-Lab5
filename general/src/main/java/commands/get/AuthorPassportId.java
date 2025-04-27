@@ -2,10 +2,12 @@ package commands.get;
 
 import java.util.Scanner;
 
+import commands.ExecuteScript;
+
 public class AuthorPassportId{
     public static String getAPassportId(Scanner scan){
         while (true) { 
-            System.out.print("Введите паспортный идентификатор автора: ");
+            if (ExecuteScript.getScannerType()) {System.out.print("Введите паспортный идентификатор автора: ");}
             if (scan.hasNextLine()){
                 String scanName = scan.nextLine();
                 if (validate(scanName)){

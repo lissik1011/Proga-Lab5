@@ -2,12 +2,14 @@ package commands.get;
 
 import java.util.Scanner;
 
+import commands.ExecuteScript;
 import data.Difficulty;
 
 public class DifficultyName{
     public static Difficulty getDif(Scanner scan){
-        while (true) { 
-            System.out.print("Выберите трудность\n1 - Hard, 2 - Hopeless, 3 - Terrible: ");
+        boolean bool = true;
+        while (bool) { 
+            if (ExecuteScript.getScannerType()) {System.out.print("Выберите трудность\n1 - Hard, 2 - Hopeless, 3 - Terrible: ");}
             if (scan.hasNextLine()){
                 String scanName = scan.nextLine();
                 try {
@@ -26,10 +28,15 @@ public class DifficultyName{
                     }
                 } catch (NumberFormatException e) {
                     System.out.println("Введены неверные данные.");
+                    if (!ExecuteScript.getScannerType()) {
+                        bool = false;
+                    }
+
                 }
             } else {
                 try (scan) {}
             }
         }
+        try (scan) {return Difficulty.valueOf("HARD");}
     }
 }

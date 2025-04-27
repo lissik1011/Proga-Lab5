@@ -19,14 +19,14 @@ public class CommandMeneger{
                     System.out.println("Заверешение работы программы без сохранения коллекции.");
                     break;
                 }
-                else if (!this.loyalCom(scancom)) {
+                else if (!loyalCom(scancom)) {
                     System.out.println("Лишнее количество аргументов. Введите help, чтобы узнать доступные команды.");
                 }
-                else if (this.thisIsCommand(this.takeCommand(scancom)[0])){
-                    String com = this.takeCommand(scancom)[0];
-                    String arg = this.takeCommand(scancom)[1];
+                else if (thisIsCommand(takeCommand(scancom)[0])){
+                    String com = takeCommand(scancom)[0];
+                    String arg = takeCommand(scancom)[1];
                     try {
-                        this.execute(labWorks, com, arg, scan);
+                        execute(labWorks, com, arg, scan);
                         history.addHistory(com);
                     } catch (IllegalArgumentException e) {
                         System.out.println(e.getMessage());
@@ -58,7 +58,11 @@ public class CommandMeneger{
         return list.getKeys().contains(comand);
     }
     public void execute(Deque<LabWork> laba, String scancom, String args, Scanner scan) throws IllegalArgumentException{
-        Command thisa = list.takeList().get(scancom);
-        thisa.execute(laba, args, scan);
+        Command command = list.takeList().get(scancom);
+        command.execute(laba, args, scan);
+    }
+
+    public History getHistory(){
+        return history;
     }
 }

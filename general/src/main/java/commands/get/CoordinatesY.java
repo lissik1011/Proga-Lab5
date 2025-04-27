@@ -2,10 +2,13 @@ package commands.get;
 
 import java.util.Scanner;
 
+import commands.ExecuteScript;
+
 public class CoordinatesY{
     public static float getCoordY(Scanner scan){
-        while (true) { 
-            System.out.print("Введите координату y (вещественное число): ");
+        boolean bool = true;
+        while (bool) { 
+            if (ExecuteScript.getScannerType()) {System.out.print("Введите координату y (вещественное число): ");}
             if (scan.hasNextLine()){
                 String scanName = scan.nextLine();
                 try {
@@ -14,10 +17,14 @@ public class CoordinatesY{
                     else System.out.println("Введены неверные данные.");
                 } catch (NumberFormatException e) {
                     System.out.println("Введены неверные данные.");
+                    if (!ExecuteScript.getScannerType()) {
+                        bool = false;
+                    }
                 }
             } else {
                 try (scan) {}
             }
         }
+        try (scan) {return 1;}
     }
 }

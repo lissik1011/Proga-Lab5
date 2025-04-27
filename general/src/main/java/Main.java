@@ -32,8 +32,3 @@ public class Main {
         command.startProg(labWorks, scan);
     }
 }
-
-
-
-// Output exporter = new Output();
-// exporter.output(labWorks, "output2.csv");

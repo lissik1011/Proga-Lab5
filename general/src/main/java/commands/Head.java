@@ -14,7 +14,7 @@ public class Head implements Command{
         if (labWorks.peek() != null) {
             System.out.println(labWorks.peek());
         } else {
-            System.out.println("Очередь пуста.");
+            System.out.println("Коллекция пуста.");
         }
     }
 }

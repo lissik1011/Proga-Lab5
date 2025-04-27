@@ -28,8 +28,6 @@ public class Add implements Command{
     @Override
     public void execute(Deque<LabWork> labWorks, String args, Scanner scan) throws IllegalArgumentException{
         if (!args.isEmpty()) throw new IllegalArgumentException("Неизвестные аргументы. Введите help, чтобы узнать доступные команды.");
-
-        System.out.println("Введите элементы лабораторной работы.");
         
         String name = Name.getName(scan);
         int coordinatesX = CoordinatesX.getCoordX(scan);
